@@ -40,6 +40,7 @@ def train(cfg, resume_from_checkpoint=None):
         save_total_limit=2,
         predict_with_generate=True,
         fp16=cfg.fp16,
+        bf16=getattr(cfg, "bf16", False),
         seed=cfg.seed,
         logging_steps=100,
     )
