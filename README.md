@@ -41,11 +41,6 @@ Otvori `notebooks/train_colab.ipynb`. Postupak:
 
 Besplatni Colab (Tesla T4, 16 GB) ili Kaggle su dovoljni za `byt5-small`.
 
-> Napomena o verzijama: `Seq2SeqTrainer` u novijim verzijama `transformers`
-> (>=4.46) preferira `processing_class=tokenizer` umjesto `tokenizer=tokenizer`.
-> Ako se pojavi deprecation upozorenje ili greska, zamijeni argument u
-> `src/crogrammar/train/train.py`.
-
 ## Upotreba
 
 ```python

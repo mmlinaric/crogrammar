@@ -46,8 +46,15 @@ def train(cfg, resume_from_checkpoint=None):
     trainer = Seq2SeqTrainer(
         model=model, args=args,
         train_dataset=tokenized["train"], eval_dataset=tokenized["dev"],
-        data_collator=collator, tokenizer=tokenizer,
+        data_collator=collator, processing_class=tokenizer,
     )
+    if resume_from_checkpoint is True:
+        from transformers.trainer_utils import get_last_checkpoint
+        import os
+        resume_from_checkpoint = (
+            get_last_checkpoint(cfg.output_dir)
+            if os.path.isdir(cfg.output_dir) else None
+        )
     trainer.train(resume_from_checkpoint=resume_from_checkpoint)
     trainer.save_model(cfg.output_dir)
     tokenizer.save_pretrained(cfg.output_dir)
