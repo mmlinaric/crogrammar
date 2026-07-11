@@ -62,17 +62,19 @@ version = "0.1.0"
 description = "Hrvatski gramaticki checker (GEC) - neuronski seq2seq model"
 requires-python = ">=3.11"
 dependencies = [
+    "regex>=2024.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+train = [
     "transformers>=4.44",
     "datasets>=2.20",
     "torch>=2.2",
     "sentencepiece>=0.2",
     "sacrebleu>=2.4",
     "classla>=2.1",
-    "regex>=2024.5",
 ]
-
-[project.optional-dependencies]
-dev = ["pytest>=8.0"]
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -84,6 +86,13 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 ```
+
+> **Napomena:** Teški ML paketi (`transformers`, `torch`, `datasets`, `classla`,
+> `sentencepiece`) su u opcionalnom `[train]` extra jer trebaju samo za trening
+> (Colab/Kaggle). Jezgra i lokalni testovi (Faze 1–3, eval) rade samo s `regex`
+> i standardnom knjižnicom, pa se sve razvija i testira lokalno bez GPU-a i bez
+> teških ovisnosti. Import `transformers`/`classla` u kodu mora biti **lijen**
+> (unutar funkcije), a ne na vrhu modula.
 
 - [ ] **Step 2: Napiši `.gitignore`**
 
