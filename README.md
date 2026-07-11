@@ -23,7 +23,13 @@ Za trening (na Colab/Kaggle) instaliraj i teske ovisnosti:
 
 Izvori:
 - **hr500k** (CLARIN.SI, CC BY-SA 4.0) — cist tekst + morfoloske oznake.
-- **ispravi.me dataset** (CC BY-NC-SA 4.0) — stvarne greske za confusion set.
+- **hunspell-hr** (`krunose/hunspell-hr`) — rjecnik hrvatskih rijeci (~15k s
+  dijakritikom) iz kojeg se gradi dijakriticki confusion set za generiranje gresaka.
+
+> Napomena: originalni ispravi.me dataset (33M parova, CC BY-NC-SA 4.0) vise nije
+> javno dostupan (GitHub org `Ispravi-Me` je ispraznjen), pa umjesto njega koristimo
+> hunspell-hr rjecnik. Kod za ispravi.me (`load_confusion_from_dir`, `clone_ispravime`)
+> ostaje u projektu za slucaj da dataset ponovno postane dostupan.
 
 ## Trening (Colab/Kaggle)
 

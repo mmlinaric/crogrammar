@@ -10,6 +10,8 @@ HR500K_FILES = [
     f"{_BASE}/hr500k-test.conllu.gz?sequence=5&isAllowed=y",
 ]
 
+HUNSPELL_HR_DIC_URL = "https://raw.githubusercontent.com/krunose/hunspell-hr/master/hr_HR.dic"
+
 
 def ispravime_repo_url() -> str:
     return "https://github.com/Ispravi-Me/Dataset-of-Misspelings-and-Corrections.git"
@@ -36,3 +38,11 @@ def clone_ispravime(raw_dir):
     if not d.exists():
         subprocess.run(["git", "clone", "--depth", "1", ispravime_repo_url(), str(d)], check=True)
     return d
+
+
+def download_hunspell_dic(raw_dir):
+    d = ensure_dir(Path(raw_dir))
+    dest = d / "hr_HR.dic"
+    if not dest.exists():
+        urllib.request.urlretrieve(HUNSPELL_HR_DIC_URL, dest)
+    return dest

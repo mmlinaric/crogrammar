@@ -1,4 +1,8 @@
-from crogrammar.data.confusion import build_confusion_set
+from crogrammar.data.confusion import (
+    build_confusion_set,
+    read_hunspell_dic,
+    build_confusion_from_wordlist,
+)
 
 ROWS = [
     ("2020-01-01", "skola", "škola"),
@@ -24,3 +28,35 @@ def test_min_frequency_filter():
     cs = build_confusion_set(ROWS, min_freq=2)
     assert "škola" in cs        # skola ima 2 pojave
     assert "otišao" not in cs   # otisao ima 1 pojavu
+
+
+DIC_SAMPLE = """5
+škola/360
+čašica
+đak
+more
+a-mol/273
+"""
+
+
+def test_read_hunspell_dic_strips_flags():
+    words = list(read_hunspell_dic(DIC_SAMPLE))
+    assert "škola" in words
+    assert "čašica" in words
+    assert "a-mol" in words
+
+def test_read_hunspell_dic_skips_count_line():
+    words = list(read_hunspell_dic(DIC_SAMPLE))
+    assert "5" not in words
+
+def test_wordlist_confusion_maps_diacritic_word_to_stripped():
+    cs = build_confusion_from_wordlist(["škola", "čašica", "đak"])
+    assert cs["škola"] == ["skola"]
+    assert cs["čašica"] == ["casica"]
+    assert cs["đak"] == ["djak"]
+
+def test_wordlist_confusion_skips_words_without_diacritics():
+    cs = build_confusion_from_wordlist(["more", "kuca", "škola"])
+    assert "more" not in cs
+    assert "kuca" not in cs
+    assert "škola" in cs
