@@ -25,6 +25,22 @@ def apply_confusion(word: str, confusion: dict, rng: random.Random) -> str:
     return rng.choice(errs[: min(3, len(errs))])
 
 
+_VOWELS = "aeiouAEIOU"
+
+
+def contract_ao(word: str) -> str:
+    if len(word) >= 3 and word[-2:] in ("ao", "io"):
+        return word[:-1]
+    return word
+
+
+def change_case_ending(word: str, rng: random.Random) -> str:
+    if len(word) < 2 or word[-1] not in _VOWELS:
+        return word
+    options = [v for v in "aeiou" if v != word[-1].lower()]
+    return word[:-1] + rng.choice(options)
+
+
 def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3) -> str:
     rng = random.Random(seed)
     words = sentence.split()
@@ -33,15 +49,23 @@ def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3) 
     for w in words:
         r = rng.random()
         if r < p:
-            choice = rng.randrange(3)
+            choice = rng.randrange(5)
             if choice == 0:
                 nw = apply_confusion(w, confusion, rng)
                 if nw == w:
                     nw = strip_diacritics(w)
             elif choice == 1:
                 nw = strip_diacritics(w)
-            else:
+            elif choice == 2:
                 nw = typo_swap(w, rng)
+            elif choice == 3:
+                nw = contract_ao(w)
+                if nw == w:
+                    nw = strip_diacritics(w)
+            else:
+                nw = change_case_ending(w, rng)
+                if nw == w:
+                    nw = strip_diacritics(w)
             if nw != w:
                 changed = True
             out.append(nw)

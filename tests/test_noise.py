@@ -3,6 +3,8 @@ from crogrammar.data.noise import (
     strip_diacritics,
     typo_swap,
     apply_confusion,
+    contract_ao,
+    change_case_ending,
     corrupt_sentence,
 )
 
@@ -34,3 +36,25 @@ def test_corrupt_sentence_changes_something():
     cs = {}
     out = corrupt_sentence("Ovo je duga rečenica sa školom", cs, seed=1, p=1.0)
     assert out != "Ovo je duga rečenica sa školom"
+
+
+def test_contract_ao_drops_final_o():
+    assert contract_ao("otišao") == "otiša"
+    assert contract_ao("radio") == "radi"
+    assert contract_ao("rekao") == "reka"
+
+def test_contract_ao_leaves_non_ao_words():
+    assert contract_ao("kuća") == "kuća"
+    assert contract_ao("stol") == "stol"
+    assert contract_ao("auto") == "auto"
+
+def test_change_case_ending_replaces_final_vowel():
+    rng = random.Random(0)
+    out = change_case_ending("kuća", rng)
+    assert out != "kuća"
+    assert out[:-1] == "kuć"
+    assert out[-1] in "eiou"
+
+def test_change_case_ending_leaves_consonant_ending():
+    rng = random.Random(0)
+    assert change_case_ending("stol", rng) == "stol"
