@@ -15,7 +15,6 @@ train = [
     "torch>=2.2",
     "sentencepiece>=0.2",
     "sacrebleu>=2.4",
-    "classla>=2.1",
 ]
 
 [build-system]
