@@ -57,6 +57,17 @@ def train(cfg, resume_from_checkpoint=None):
             if os.path.isdir(cfg.output_dir) else None
         )
     trainer.train(resume_from_checkpoint=resume_from_checkpoint)
-    trainer.save_model(cfg.output_dir)
-    tokenizer.save_pretrained(cfg.output_dir)
-    return cfg.output_dir
+    save_dir = cfg.output_dir
+    try:
+        trainer.save_model(save_dir)
+        tokenizer.save_pretrained(save_dir)
+    except OSError as e:
+        import os
+        fallback = "/content/byt5-hr-gec-final"
+        print(f"[UPOZORENJE] Spremanje u {save_dir} nije uspjelo ({e}). "
+              f"Spremam lokalno u {fallback}.")
+        os.makedirs(fallback, exist_ok=True)
+        trainer.save_model(fallback)
+        tokenizer.save_pretrained(fallback)
+        save_dir = fallback
+    return save_dir
