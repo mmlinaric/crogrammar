@@ -12,9 +12,16 @@ def evaluate_pairs(pairs, generate_fn):
     return {"gleu": sum(scores) / n if n else 0.0, "n": n}
 
 
-def evaluate_pairs_batched(pairs, generate_batch, batch_size=32):
+def evaluate_pairs_batched(pairs, generate_batch, batch_size=32, progress=False):
     scores = []
-    for i in range(0, len(pairs), batch_size):
+    starts = range(0, len(pairs), batch_size)
+    if progress:
+        try:
+            from tqdm.auto import tqdm
+            starts = tqdm(starts, total=(len(pairs) + batch_size - 1) // batch_size)
+        except ImportError:
+            pass
+    for i in starts:
         chunk = pairs[i:i + batch_size]
         hyps = generate_batch([p["src"] for p in chunk])
         for hyp, p in zip(hyps, chunk):
