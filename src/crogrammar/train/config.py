@@ -18,7 +18,7 @@ class TrainConfig:
     save_steps: int = 1000
     eval_steps: int = 1000
     seed: int = 42
-    fp16: bool = True
+    fp16: bool = False
 
     def as_dict(self) -> dict:
         return asdict(self)
