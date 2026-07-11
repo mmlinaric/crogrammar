@@ -24,17 +24,30 @@ class CroatianGEC:
             raise ValueError("Zadaj model_path ili generate_fn")
 
     def _build_hf_generate(self, model_path):
+        import torch
         from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
         tok = AutoTokenizer.from_pretrained(model_path)
         model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        model.to(device)
         model.eval()
 
         def _gen(sentence: str) -> str:
             inputs = tok("ispravi: " + sentence, return_tensors="pt",
-                         truncation=True, max_length=self.max_len)
-            out = model.generate(**inputs, max_length=self.max_len)
+                         truncation=True, max_length=self.max_len).to(device)
+            with torch.no_grad():
+                out = model.generate(**inputs, max_length=self.max_len)
             return tok.decode(out[0], skip_special_tokens=True)
 
+        def _gen_batch(sentences):
+            inputs = tok(["ispravi: " + s for s in sentences], return_tensors="pt",
+                         truncation=True, max_length=self.max_len,
+                         padding=True).to(device)
+            with torch.no_grad():
+                out = model.generate(**inputs, max_length=self.max_len)
+            return tok.batch_decode(out, skip_special_tokens=True)
+
+        self.generate_batch = _gen_batch
         return _gen
 
     def correct(self, text: str) -> Result:
