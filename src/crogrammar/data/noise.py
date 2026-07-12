@@ -80,13 +80,14 @@ def punctuation_noise(sentence: str, rng: random.Random) -> str:
 def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3,
                      real_words=None) -> str:
     rng = random.Random(seed)
+    sentence = punctuation_noise(sentence, rng)
     words = sentence.split()
     out = []
     changed = False
     for w in words:
         r = rng.random()
         if r < p:
-            choice = rng.randrange(5)
+            choice = rng.randrange(6)
             if choice == 0:
                 nw = apply_confusion(w, confusion, rng)
                 if nw == w:
@@ -99,15 +100,29 @@ def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3,
                 nw = contract_ao(w)
                 if nw == w:
                     nw = strip_diacritics_safe(w, real_words)
-            else:
+            elif choice == 4:
                 nw = change_case_ending(w, rng)
                 if nw == w:
                     nw = strip_diacritics_safe(w, real_words)
+            else:
+                nw = case_noise(w, rng)
             if nw != w:
                 changed = True
             out.append(nw)
         else:
             out.append(w)
+    # spajanje/razdvajanje na razini rečenice
+    if len(out) >= 2 and rng.random() < p * 0.5:
+        i = rng.randrange(len(out) - 1)
+        out[i] = merge_words(out[i], out[i + 1])
+        del out[i + 1]
+        changed = True
+    elif out and rng.random() < p * 0.5:
+        i = rng.randrange(len(out))
+        split = split_word(out[i], rng)
+        if split != out[i]:
+            out[i] = split
+            changed = True
     if not changed and words:
         out[0] = strip_diacritics_safe(out[0], real_words) or out[0]
     return " ".join(out)

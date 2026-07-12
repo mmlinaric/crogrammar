@@ -127,3 +127,21 @@ def test_punctuation_noise_can_drop_comma():
             found = True
             break
     assert found
+
+def test_corrupt_sentence_still_deterministic():
+    from crogrammar.data.noise import corrupt_sentence
+    a = corrupt_sentence("idem u školu danas ujutro", {}, seed=11, p=0.5)
+    b = corrupt_sentence("idem u školu danas ujutro", {}, seed=11, p=0.5)
+    assert a == b
+
+def test_corrupt_sentence_can_produce_space_change():
+    from crogrammar.data.noise import corrupt_sentence
+    # s visokim p, barem jedan seed proizvede spajanje ili razdvajanje (promjena broja razmaka)
+    base = "idem u veliku školu svaki dan"
+    changed_spacing = False
+    for s in range(40):
+        out = corrupt_sentence(base, {}, seed=s, p=0.9)
+        if out.count(" ") != base.count(" "):
+            changed_spacing = True
+            break
+    assert changed_spacing
