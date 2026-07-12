@@ -50,6 +50,17 @@ def change_case_ending(word: str, rng: random.Random) -> str:
     return word[:-1] + rng.choice(options)
 
 
+def merge_words(w1: str, w2: str) -> str:
+    return w1 + w2
+
+
+def split_word(word: str, rng: random.Random) -> str:
+    if len(word) < 4:
+        return word
+    i = rng.randrange(2, len(word) - 1)
+    return word[:i] + " " + word[i:]
+
+
 def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3,
                      real_words=None) -> str:
     rng = random.Random(seed)

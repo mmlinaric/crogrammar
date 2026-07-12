@@ -78,3 +78,19 @@ def test_corrupt_sentence_preserves_homograph_with_wordset():
     real_words = {"sto", "što", "jabuka", "jabuke"}
     out = corrupt_sentence("sto jabuka", {}, seed=3, p=1.0, real_words=real_words)
     assert "što" not in out.split()
+
+def test_merge_words_joins_two():
+    from crogrammar.data.noise import merge_words
+    assert merge_words("u", "školu") == "uškolu"
+
+def test_split_word_creates_space():
+    import random
+    from crogrammar.data.noise import split_word
+    out = split_word("nemogu", random.Random(0))
+    assert " " in out
+    assert out.replace(" ", "") == "nemogu"
+
+def test_split_word_leaves_short_words():
+    import random
+    from crogrammar.data.noise import split_word
+    assert split_word("da", random.Random(0)) == "da"
