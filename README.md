@@ -71,6 +71,33 @@ Za testiranje bez modela, `CroatianGEC` prima i `generate_fn` (rečenica → isp
 gec = CroatianGEC(generate_fn=lambda s: s.replace("skolu", "školu"))
 ```
 
+### Odabir uredaja (GPU / CPU)
+
+`CroatianGEC` automatski bira uredaj: **CUDA** (NVIDIA) → **DirectML** (AMD/Intel
+GPU na Windowsu, npr. Radeon RX570) → **CPU**. Ako GPU baci gresku tijekom
+generacije, automatski se vraca na CPU. Eksplicitan izbor:
+
+```python
+gec = CroatianGEC(model_path="...", device="cpu")       # ili "cuda", "directml", "auto"
+print(gec.device_kind)
+```
+
+Za DirectML na Windowsu s AMD/Intel GPU-om: `pip install torch-directml`
+(povlaci kompatibilan torch; radi s Python 3.10-3.12).
+
+### Rezultati (model v0.1.0, ByT5-small, 1 epoha, sinteticke greske)
+
+| Test set | GLEU |
+|----------|------|
+| Sinteticki (iste vrste gresaka kao trening) | 0.957 |
+| **RAPUT (stvarne ljudske greske)** | **~0.45** |
+| RAPUT, dijakritika-neutralno | ~0.65 |
+
+RAPUT broj je *pravi* pokazatelj: model je jak na dijakritici (glavni cilj), ali
+slabiji na morfologiji/sintaksi jer je treniran na 1 epohi sa sintetickim greskama
+i bez ispravi.me podataka. Sljedeci koraci za podizanje: vise epoha, vise cistog
+teksta (Wikipedia), RAPUT greske u trening.
+
 ## Struktura
 
     src/crogrammar/
