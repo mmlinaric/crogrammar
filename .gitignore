@@ -9,3 +9,4 @@ data/processed/
 models/
 *.gz
 *.jsonl
+!tests/manual_test_set.jsonl

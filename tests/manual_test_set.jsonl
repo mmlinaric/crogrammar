@@ -1,0 +1,72 @@
+{"src": "idem u skolu", "tgt": "idem u školu", "kategorija": "diacritic"}
+{"src": "moja casa je puna", "tgt": "moja čaša je puna", "kategorija": "diacritic"}
+{"src": "citam knjigu navecer", "tgt": "čitam knjigu navečer", "kategorija": "diacritic"}
+{"src": "zelim ti srecu", "tgt": "želim ti sreću", "kategorija": "diacritic"}
+{"src": "djak je dobar ucenik", "tgt": "đak je dobar učenik", "kategorija": "diacritic"}
+{"src": "vozim se biciklom nizbrdo", "tgt": "vozim se biciklom nizbrdo", "kategorija": "diacritic"}
+{"src": "nosim zutu majicu", "tgt": "nosim žutu majicu", "kategorija": "diacritic"}
+{"src": "pijem caj svako jutro", "tgt": "pijem čaj svako jutro", "kategorija": "diacritic"}
+{"src": "kupujem svjeze voce", "tgt": "kupujem svježe voće", "kategorija": "diacritic"}
+{"src": "cesto secem parkom", "tgt": "često šećem parkom", "kategorija": "diacritic"}
+{"src": "ucenici pisu zadacu", "tgt": "učenici pišu zadaću", "kategorija": "diacritic"}
+{"src": "nasa kuca ima velik vrt", "tgt": "naša kuća ima velik vrt", "kategorija": "diacritic"}
+{"src": "on je otiša doma", "tgt": "on je otišao doma", "kategorija": "morphology"}
+{"src": "ja sam radi cijeli dan", "tgt": "ja sam radio cijeli dan", "kategorija": "morphology"}
+{"src": "ona je reka istinu", "tgt": "ona je rekla istinu", "kategorija": "morphology"}
+{"src": "vidio sam ga na ulico", "tgt": "vidio sam ga na ulici", "kategorija": "morphology"}
+{"src": "razgovaram s prijatelja", "tgt": "razgovaram s prijateljem", "kategorija": "morphology"}
+{"src": "idem prema kuco", "tgt": "idem prema kući", "kategorija": "morphology"}
+{"src": "sjedim u sobo", "tgt": "sjedim u sobi", "kategorija": "morphology"}
+{"src": "pisem pismo sestre", "tgt": "pišem pismo sestri", "kategorija": "morphology"}
+{"src": "on bi doša da moze", "tgt": "on bi došao da može", "kategorija": "morphology"}
+{"src": "kupi sam novi auto", "tgt": "kupio sam novi auto", "kategorija": "morphology"}
+{"src": "citala je knjigu cijelu noc", "tgt": "čitala je knjigu cijelu noć", "kategorija": "morphology"}
+{"src": "putova sam vlakom", "tgt": "putovao sam vlakom", "kategorija": "morphology"}
+{"src": "nemogu doci danas", "tgt": "ne mogu doći danas", "kategorija": "split_merge"}
+{"src": "netreba mi pomoc", "tgt": "ne treba mi pomoć", "kategorija": "split_merge"}
+{"src": "idem uskolu ujutro", "tgt": "idem u školu ujutro", "kategorija": "split_merge"}
+{"src": "on nezna odgovor", "tgt": "on ne zna odgovor", "kategorija": "split_merge"}
+{"src": "napisao sam za dacu", "tgt": "napisao sam zadaću", "kategorija": "split_merge"}
+{"src": "to je ne moguce", "tgt": "to je nemoguće", "kategorija": "split_merge"}
+{"src": "vidimo se su tra", "tgt": "vidimo se sutra", "kategorija": "split_merge"}
+{"src": "on nedolazi veceras", "tgt": "on ne dolazi večeras", "kategorija": "split_merge"}
+{"src": "ni sam znao za to", "tgt": "nisam znao za to", "kategorija": "split_merge"}
+{"src": "svejedno mi je", "tgt": "svejedno mi je", "kategorija": "split_merge"}
+{"src": "dolazim na kavu poslije", "tgt": "dolazim na kavu poslije", "kategorija": "split_merge"}
+{"src": "ne razumijem te", "tgt": "ne razumijem te", "kategorija": "split_merge"}
+{"src": "dosao je kuci umoran no sretan", "tgt": "došao je kući umoran, no sretan", "kategorija": "punctuation"}
+{"src": "kupila je kruh mlijeko i jaja", "tgt": "kupila je kruh, mlijeko i jaja", "kategorija": "punctuation"}
+{"src": "danas je lijep dan", "tgt": "danas je lijep dan.", "kategorija": "punctuation"}
+{"src": "ako dodes javi mi se", "tgt": "ako dođeš, javi mi se", "kategorija": "punctuation"}
+{"src": "volim ljeto zima mi je hladna", "tgt": "volim ljeto, zima mi je hladna", "kategorija": "punctuation"}
+{"src": "on je otisao ona je ostala", "tgt": "on je otišao, ona je ostala", "kategorija": "punctuation"}
+{"src": "sve je bilo u redu", "tgt": "sve je bilo u redu.", "kategorija": "punctuation"}
+{"src": "kada stignes nazovi me", "tgt": "kada stigneš, nazovi me", "kategorija": "punctuation"}
+{"src": "pas maca i ptica zive skupa", "tgt": "pas, maca i ptica žive skupa", "kategorija": "punctuation"}
+{"src": "hvala ti puno", "tgt": "hvala ti puno.", "kategorija": "punctuation"}
+{"src": "iako je padala kisa izasli smo", "tgt": "iako je padala kiša, izašli smo", "kategorija": "punctuation"}
+{"src": "moras uciti ako zelis proci", "tgt": "moraš učiti ako želiš proći", "kategorija": "punctuation"}
+{"src": "imam sto kuna u novčaniku", "tgt": "imam sto kuna u novčaniku", "kategorija": "homograph_keep"}
+{"src": "dao mi je sto eura", "tgt": "dao mi je sto eura", "kategorija": "homograph_keep"}
+{"src": "grad je bio miran", "tgt": "grad je bio miran", "kategorija": "homograph_keep"}
+{"src": "luk je zdravo povrće", "tgt": "luk je zdravo povrće", "kategorija": "homograph_keep"}
+{"src": "more je bilo mirno", "tgt": "more je bilo mirno", "kategorija": "homograph_keep"}
+{"src": "sunce je grijalo jako", "tgt": "sunce je grijalo jako", "kategorija": "homograph_keep"}
+{"src": "put je bio dug", "tgt": "put je bio dug", "kategorija": "homograph_keep"}
+{"src": "dan je bio topao", "tgt": "dan je bio topao", "kategorija": "homograph_keep"}
+{"src": "kosi livadu svako ljeto", "tgt": "kosi livadu svako ljeto", "kategorija": "homograph_keep"}
+{"src": "vlak kasni pola sata", "tgt": "vlak kasni pola sata", "kategorija": "homograph_keep"}
+{"src": "gore je hladnije nego dolje", "tgt": "gore je hladnije nego dolje", "kategorija": "homograph_keep"}
+{"src": "mir je zavladao gradom", "tgt": "mir je zavladao gradom", "kategorija": "homograph_keep"}
+{"src": "marko ide u školu", "tgt": "Marko ide u školu", "kategorija": "case"}
+{"src": "Idem Kući Sada", "tgt": "idem kući sada", "kategorija": "case"}
+{"src": "zagreb je glavni grad", "tgt": "Zagreb je glavni grad", "kategorija": "case"}
+{"src": "ana i ivan su prijatelji", "tgt": "Ana i Ivan su prijatelji", "kategorija": "case"}
+{"src": "u Ponedjeljak idem na posao", "tgt": "u ponedjeljak idem na posao", "kategorija": "case"}
+{"src": "hrvatska je lijepa zemlja", "tgt": "Hrvatska je lijepa zemlja", "kategorija": "case"}
+{"src": "danas Je Lijep dan", "tgt": "danas je lijep dan", "kategorija": "case"}
+{"src": "petar voli nogomet", "tgt": "Petar voli nogomet", "kategorija": "case"}
+{"src": "moj brat zivi u splitu", "tgt": "moj brat živi u Splitu", "kategorija": "case"}
+{"src": "rijeka sava protjece gradom", "tgt": "rijeka Sava protječe gradom", "kategorija": "case"}
+{"src": "susjeda marija je draga", "tgt": "susjeda Marija je draga", "kategorija": "case"}
+{"src": "Ljeti Idemo Na More", "tgt": "ljeti idemo na more", "kategorija": "case"}
