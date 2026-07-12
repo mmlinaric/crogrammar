@@ -61,6 +61,22 @@ def split_word(word: str, rng: random.Random) -> str:
     return word[:i] + " " + word[i:]
 
 
+def case_noise(word: str, rng: random.Random) -> str:
+    if not word:
+        return word
+    if word[0].isupper():
+        return word[0].lower() + word[1:]
+    return word[0].upper() + word[1:]
+
+
+def punctuation_noise(sentence: str, rng: random.Random) -> str:
+    if "," in sentence and rng.random() < 0.5:
+        return sentence.replace(",", "")
+    if sentence.endswith(".") and rng.random() < 0.5:
+        return sentence[:-1]
+    return sentence
+
+
 def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3,
                      real_words=None) -> str:
     rng = random.Random(seed)

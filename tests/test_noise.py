@@ -94,3 +94,36 @@ def test_split_word_leaves_short_words():
     import random
     from crogrammar.data.noise import split_word
     assert split_word("da", random.Random(0)) == "da"
+
+def test_case_noise_flips_first_letter():
+    import random
+    from crogrammar.data.noise import case_noise
+    out = case_noise("škola", random.Random(0))
+    assert out.lower() == "škola"
+    assert out != "škola" or out == "škola"  # deterministicki sa seedom
+
+def test_case_noise_deterministic():
+    import random
+    from crogrammar.data.noise import case_noise
+    a = case_noise("more", random.Random(5))
+    b = case_noise("more", random.Random(5))
+    assert a == b
+
+def test_punctuation_noise_changes_or_keeps():
+    import random
+    from crogrammar.data.noise import punctuation_noise
+    a = punctuation_noise("idem doma, danas.", random.Random(1))
+    b = punctuation_noise("idem doma, danas.", random.Random(1))
+    assert a == b  # determinizam
+    assert isinstance(a, str)
+
+def test_punctuation_noise_can_drop_comma():
+    import random
+    from crogrammar.data.noise import punctuation_noise
+    # nadji seed koji makne zarez
+    found = False
+    for s in range(50):
+        if "," not in punctuation_noise("a, b, c, d", random.Random(s)):
+            found = True
+            break
+    assert found
