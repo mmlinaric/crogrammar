@@ -31,6 +31,13 @@ Izvori:
 > hunspell-hr rjecnik. Kod za ispravi.me (`load_confusion_from_dir`, `clone_ispravime`)
 > ostaje u projektu za slucaj da dataset ponovno postane dostupan.
 
+### Stvarni test set (RAPUT)
+
+Osim sintetickog test seta, model se evaluira i na **RAPUT 1.0** — stvarnom,
+rucno anotiranom korpusu nesavrsenog hrvatskog pisanja (34k recenica, parovi
+napisano→ispravljeno). To daje *pravi* GLEU, ne samo sinteticki. Licenca CC BY-SA 4.0.
+Preuzima se preko `crogrammar.data.download.download_raput`.
+
 ## Trening (Colab/Kaggle)
 
 Otvori `notebooks/train_colab.ipynb`. Postupak:

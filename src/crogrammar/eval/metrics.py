@@ -1,5 +1,7 @@
 from collections import Counter
 
+from ..data.noise import strip_diacritics
+
 
 def _ngrams(tokens, n):
     return Counter(tuple(tokens[i:i + n]) for i in range(len(tokens) - n + 1))
@@ -21,6 +23,11 @@ def gleu_sentence(hypothesis: str, reference: str, max_n: int = 4) -> float:
     if total_hyp == 0:
         return 0.0
     return total_overlap / total_hyp
+
+
+def gleu_sentence_diacritic_insensitive(hypothesis: str, reference: str, max_n: int = 4) -> float:
+    return gleu_sentence(strip_diacritics(hypothesis.lower()),
+                         strip_diacritics(reference.lower()), max_n=max_n)
 
 
 def prf_edits(pred: set, gold: set, beta: float = 0.5):

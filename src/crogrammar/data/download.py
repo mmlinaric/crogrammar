@@ -12,6 +12,8 @@ HR500K_FILES = [
 
 HUNSPELL_HR_DIC_URL = "https://raw.githubusercontent.com/krunose/hunspell-hr/master/hr_HR.dic"
 
+RAPUT_URL = "https://www.clarin.si/repository/xmlui/bitstream/handle/11356/1435/Raput.conllup.zip?sequence=2&isAllowed=y"
+
 
 def ispravime_repo_url() -> str:
     return "https://github.com/Ispravi-Me/Dataset-of-Misspelings-and-Corrections.git"
@@ -46,3 +48,16 @@ def download_hunspell_dic(raw_dir):
     if not dest.exists():
         urllib.request.urlretrieve(HUNSPELL_HR_DIC_URL, dest)
     return dest
+
+
+def download_raput(raw_dir):
+    import zipfile
+    d = ensure_dir(Path(raw_dir) / "raput")
+    zip_path = d / "raput.zip"
+    if not zip_path.exists():
+        urllib.request.urlretrieve(RAPUT_URL, zip_path)
+    with zipfile.ZipFile(zip_path) as z:
+        z.extractall(d)
+    for p in d.rglob("raput.conllup"):
+        return p
+    return None
