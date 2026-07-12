@@ -98,6 +98,18 @@ slabiji na morfologiji/sintaksi jer je treniran na 1 epohi sa sintetickim greska
 i bez ispravi.me podataka. Sljedeci koraci za podizanje: vise epoha, vise cistog
 teksta (Wikipedia), RAPUT greske u trening.
 
+### v0.2.0 (u izradi)
+
+Veliki upgrade: **ByT5-base**, hrvatska Wikipedia + hr500k (~1M+ recenica), prosireni
+generator gresaka (spajanje/razdvajanje rijeci, interpunkcija, velika slova), **RAPUT
+stvarne greske u trening** (pretezane x4), **3 epohe**. Trening na **Kaggle** (P100),
+model se sprema u `/kaggle/working` i kao Kaggle Dataset za resume (bez Google Drive-a).
+Notebook: `notebooks/train_kaggle.ipynb`.
+
+Mjerenje: `tests/manual_test_set.jsonl` (72 recenice, 6 kategorija: diacritic,
+morphology, split_merge, punctuation, homograph_keep, case) — usporedba v0.1.0 vs
+v0.2.0 GLEU po kategoriji.
+
 ## Struktura
 
     src/crogrammar/
