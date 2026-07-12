@@ -58,3 +58,11 @@ def _detokenize(tokens, misc):
 def read_raput_pairs(path):
     with open(path, encoding="utf-8") as f:
         return list(parse_raput(f.read()))
+
+
+def raput_training_pairs(path):
+    pairs = []
+    for src, tgt in read_raput_pairs(path):
+        if src.lower() != tgt.lower():
+            pairs.append({"src": src, "tgt": tgt})
+    return pairs

@@ -40,3 +40,36 @@ def test_falls_back_to_form_when_orig_underscore():
     )
     pairs = list(parse_raput(text))
     assert pairs == [("more", "more")]
+
+
+def test_raput_training_pairs_extracts_real_errors(tmp_path):
+    from crogrammar.data.raput import raput_training_pairs
+    sample = (
+        "# global.columns = ID FORM LEMMA UPOS XPOS FEATS HEAD DEPREL DEPS MISC RAPUT:ORIG RAPUT:ERRORS\n"
+        "# sent_id = 1\n"
+        "1\takcijske\takcijski\tADJ\t_\t_\t_\t_\t_\t_\takciske\tPHON-SEG\n"
+        "2\tfilm\tfilm\tNOUN\t_\t_\t_\t_\t_\t_\tfilm\t_\n"
+        "\n"
+        "# sent_id = 2\n"
+        "1\tmoja\tmoj\tDET\t_\t_\t_\t_\t_\t_\tMoja\t_\n"
+    )
+    p = tmp_path / "r.conllup"
+    p.write_text(sample, encoding="utf-8")
+    pairs = raput_training_pairs(str(p))
+    # sent 1 ima pravu gresku (akciske->akcijske) => ukljucen
+    assert any(x["src"] == "akciske film" and x["tgt"] == "akcijske film" for x in pairs)
+    # sent 2 je samo case (Moja->moja) => iskljucen
+    assert not any(x["src"] == "Moja" for x in pairs)
+
+
+def test_raput_training_pairs_returns_dicts(tmp_path):
+    from crogrammar.data.raput import raput_training_pairs
+    sample = (
+        "# global.columns = ID FORM LEMMA UPOS XPOS FEATS HEAD DEPREL DEPS MISC RAPUT:ORIG RAPUT:ERRORS\n"
+        "# sent_id = 1\n"
+        "1\tdoći\tdoći\tVERB\t_\t_\t_\t_\t_\t_\tdoć\tORTHO\n"
+    )
+    p = tmp_path / "r.conllup"
+    p.write_text(sample, encoding="utf-8")
+    pairs = raput_training_pairs(str(p))
+    assert pairs == [{"src": "doć", "tgt": "doći"}]
