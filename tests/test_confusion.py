@@ -60,3 +60,9 @@ def test_wordlist_confusion_skips_words_without_diacritics():
     assert "more" not in cs
     assert "kuca" not in cs
     assert "škola" in cs
+
+def test_wordlist_confusion_skips_real_word_homographs():
+    # "što" -> "sto", ali "sto" je valjana rijec (100), pa preskacemo
+    cs = build_confusion_from_wordlist(["što", "sto", "škola"])
+    assert "što" not in cs
+    assert "škola" in cs

@@ -47,11 +47,15 @@ def read_hunspell_dic(text: str):
 
 
 def build_confusion_from_wordlist(words) -> dict:
+    word_set = set(words)
     result = {}
     for word in words:
         stripped = strip_diacritics(word)
-        if stripped != word:
-            result[word] = [stripped]
+        if stripped == word:
+            continue
+        if stripped in word_set:
+            continue
+        result[word] = [stripped]
     return result
 
 
@@ -59,3 +63,8 @@ def load_confusion_from_dic(path) -> dict:
     with open(path, encoding="utf-8") as f:
         words = list(read_hunspell_dic(f.read()))
     return build_confusion_from_wordlist(words)
+
+
+def load_wordset_from_dic(path) -> set:
+    with open(path, encoding="utf-8") as f:
+        return set(read_hunspell_dic(f.read()))

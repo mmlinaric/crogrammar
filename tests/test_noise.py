@@ -1,6 +1,7 @@
 import random
 from crogrammar.data.noise import (
     strip_diacritics,
+    strip_diacritics_safe,
     typo_swap,
     apply_confusion,
     contract_ao,
@@ -58,3 +59,22 @@ def test_change_case_ending_replaces_final_vowel():
 def test_change_case_ending_leaves_consonant_ending():
     rng = random.Random(0)
     assert change_case_ending("stol", rng) == "stol"
+
+
+def test_strip_diacritics_safe_skips_real_word_homographs():
+    real_words = {"sto", "što", "posto", "pošto"}
+    assert strip_diacritics_safe("što", real_words) == "što"
+    assert strip_diacritics_safe("pošto", real_words) == "pošto"
+
+def test_strip_diacritics_safe_strips_when_not_real_word():
+    real_words = {"škola", "sto"}
+    assert strip_diacritics_safe("škola", real_words) == "skola"
+
+def test_strip_diacritics_safe_no_wordset_behaves_like_strip():
+    assert strip_diacritics_safe("što", None) == "sto"
+    assert strip_diacritics_safe("škola", set()) == "skola"
+
+def test_corrupt_sentence_preserves_homograph_with_wordset():
+    real_words = {"sto", "što", "jabuka", "jabuke"}
+    out = corrupt_sentence("sto jabuka", {}, seed=3, p=1.0, real_words=real_words)
+    assert "što" not in out.split()

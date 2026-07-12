@@ -5,11 +5,12 @@ from pathlib import Path
 from .noise import corrupt_sentence
 
 
-def make_pairs(clean_sentences, confusion, seed: int, variants: int = 1):
+def make_pairs(clean_sentences, confusion, seed: int, variants: int = 1, real_words=None):
     pairs = []
     for i, tgt in enumerate(clean_sentences):
         for v in range(variants):
-            src = corrupt_sentence(tgt, confusion, seed=seed + i * 1000 + v)
+            src = corrupt_sentence(tgt, confusion, seed=seed + i * 1000 + v,
+                                   real_words=real_words)
             pairs.append({"src": src, "tgt": tgt})
     return pairs
 

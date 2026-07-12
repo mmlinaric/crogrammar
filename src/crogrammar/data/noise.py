@@ -9,6 +9,15 @@ def strip_diacritics(text: str) -> str:
     return text.replace("đ", "dj").replace("Đ", "Dj")
 
 
+def strip_diacritics_safe(word: str, real_words) -> str:
+    stripped = strip_diacritics(word)
+    if stripped == word:
+        return word
+    if real_words and stripped in real_words:
+        return word
+    return stripped
+
+
 def typo_swap(word: str, rng: random.Random) -> str:
     if len(word) < 2:
         return word
@@ -41,7 +50,8 @@ def change_case_ending(word: str, rng: random.Random) -> str:
     return word[:-1] + rng.choice(options)
 
 
-def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3) -> str:
+def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3,
+                     real_words=None) -> str:
     rng = random.Random(seed)
     words = sentence.split()
     out = []
@@ -53,24 +63,24 @@ def corrupt_sentence(sentence: str, confusion: dict, seed: int, p: float = 0.3) 
             if choice == 0:
                 nw = apply_confusion(w, confusion, rng)
                 if nw == w:
-                    nw = strip_diacritics(w)
+                    nw = strip_diacritics_safe(w, real_words)
             elif choice == 1:
-                nw = strip_diacritics(w)
+                nw = strip_diacritics_safe(w, real_words)
             elif choice == 2:
                 nw = typo_swap(w, rng)
             elif choice == 3:
                 nw = contract_ao(w)
                 if nw == w:
-                    nw = strip_diacritics(w)
+                    nw = strip_diacritics_safe(w, real_words)
             else:
                 nw = change_case_ending(w, rng)
                 if nw == w:
-                    nw = strip_diacritics(w)
+                    nw = strip_diacritics_safe(w, real_words)
             if nw != w:
                 changed = True
             out.append(nw)
         else:
             out.append(w)
     if not changed and words:
-        out[0] = strip_diacritics(out[0]) or out[0]
+        out[0] = strip_diacritics_safe(out[0], real_words) or out[0]
     return " ".join(out)
