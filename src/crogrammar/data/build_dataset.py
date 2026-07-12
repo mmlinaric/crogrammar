@@ -34,3 +34,10 @@ def write_jsonl(pairs, path):
     with open(p, "w", encoding="utf-8") as f:
         for pair in pairs:
             f.write(json.dumps(pair, ensure_ascii=False) + "\n")
+
+
+def mix_sources(synthetic_pairs, real_pairs, real_weight: int = 4, seed: int = 0):
+    combined = list(synthetic_pairs) + list(real_pairs) * real_weight
+    rng = random.Random(seed)
+    rng.shuffle(combined)
+    return combined
